@@ -42,7 +42,8 @@ export default function AppLayout() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            {/* Responsive drawer */}
+            TypeScript React家計簿
           </Typography>
         </Toolbar>
       </AppBar>

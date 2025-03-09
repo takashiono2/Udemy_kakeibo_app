@@ -1,47 +1,64 @@
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
+import React, { CSSProperties } from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import { NavLink } from 'react-router-dom';
 interface SideBarProps {
   drawerWidth: number,
   mobileOpen: boolean,
   handleDrawerToggle: () => void,
 }
 
-const drawer = (
-  <div>
-    <Toolbar />
-    <Divider />
-    <List>
-      {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-    <Divider />
-    <List>
-      {['All mail', 'Trash', 'Spam'].map((text, index) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-  </div>
-);
+interface menuItem {
+  text: string,
+  path: string,
+  icon: React.ComponentType,
+}
 
 const SideBar = (
   { drawerWidth, mobileOpen, handleDrawerToggle }: SideBarProps) => {
+
+  const MenuItems: menuItem[] = [
+    { text: 'Home', path: '/', icon: HomeIcon },
+    { text: 'Report', path: '/report', icon: EqualizerIcon },
+  ]
+
+  const baseLinkStyle: CSSProperties = {
+    textDecoration: 'none',
+    color: 'inherit',
+    display: 'block',
+  }
+
+  const activeLinkStyle: CSSProperties = {
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+  }
+
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {MenuItems.map((item, index) => (
+          <NavLink to={item.path} key={item.text} style={({ isActive }) => {
+            console.log("選択されたメニューは", item.text, isActive);
+            return {
+              ...baseLinkStyle,
+              ...(isActive ? activeLinkStyle : {})
+            }
+          }}>
+            <ListItem key={index} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <item.icon />
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        ))}
+      </List>
+    </div>);
+
   return (
     <div>
       <Box
