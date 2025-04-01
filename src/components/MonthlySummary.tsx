@@ -4,8 +4,18 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { theme } from '../theme/theme';
+import { Transaction } from '../types';
+import { finaceCalculations } from '../utils/financeCalcurations';
 
-const MonthlySummary = () => {
+interface MonthlySummaryProps {
+  monthlyTransactions: Transaction[]
+}
+
+const MonthlySummary = ({ monthlyTransactions }: MonthlySummaryProps) => {
+  console.log("monthlyTransactions: ", monthlyTransactions);
+
+  const { income, expense, balance } = finaceCalculations(monthlyTransactions);
+
   return (
     <Grid container spacing={{ xs: 1, sm: 2 }} mb={2}>
       {/* 収入 */}
@@ -28,7 +38,7 @@ const MonthlySummary = () => {
               variant="h5"
               fontWeight={"fontWeightBold"}
               sx={{ wordBreak: "break-word", fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" } }}
-            >¥300</Typography>
+            >¥{income}</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -43,14 +53,14 @@ const MonthlySummary = () => {
           <CardContent sx={{ padding: { xs: 1, sm: 2 } }}>
             <Stack direction={"row"}>
               <ArrowDownwardIcon sx={{ fontSize: "2rem" }} />
-              <Typography>収入</Typography>
+              <Typography>支出</Typography>
             </Stack>
             <Typography
               textAlign={"right"}
               variant="h5"
               fontWeight={"fontWeightBold"}
               sx={{ wordBreak: "break-word", fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" } }}
-            >¥300</Typography>
+            >¥{expense}</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -65,14 +75,14 @@ const MonthlySummary = () => {
           <CardContent sx={{ padding: { xs: 1, sm: 2 } }}>
             <Stack direction={"row"}>
               <AccountBalanceIcon sx={{ fontSize: "2rem" }} />
-              <Typography>収入</Typography>
+              <Typography>残高</Typography>
             </Stack>
             <Typography
               textAlign={"right"}
               variant="h5"
               fontWeight={"fontWeightBold"}
               sx={{ wordBreak: "break-word", fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" } }}
-            >¥300</Typography>
+            >¥{balance}</Typography>
           </CardContent>
         </Card>
       </Grid>

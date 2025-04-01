@@ -40,7 +40,6 @@ const SideBar = (
       <List>
         {MenuItems.map((item, index) => (
           <NavLink to={item.path} key={item.text} style={({ isActive }) => {
-            console.log("選択されたメニューは", item.text, isActive);
             return {
               ...baseLinkStyle,
               ...(isActive ? activeLinkStyle : {})
