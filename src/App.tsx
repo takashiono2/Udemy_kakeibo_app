@@ -37,8 +37,6 @@ function App() {
       } catch (err) {
         if (isFirebaseError(err)) {
           console.error("firestoreのエラー： ", err);
-          // console.error("firestoreのエラーメッセージ： ", err.message);
-          // console.error("firestoreのエラーコード： ", err.code);
         } else {
           console.error("一般的なエラー： ", err);
         }
@@ -57,7 +55,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Home monthlyTransactions={monthlyTransactions} />} />
+            <Route index element={<Home monthlyTransactions={monthlyTransactions} setCurrentMonth={setCurrentMonth} />} />
             <Route path="/report" element={<Report />} />
             <Route path="/*" element={<NoMatch />} />
           </Route>
